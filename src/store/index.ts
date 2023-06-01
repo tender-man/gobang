@@ -12,11 +12,12 @@ let winner = ''
 export const useStore = defineStore('store', {
     state: () => ({
         pieces, count, firster, winner
-    }), actions: {
+    }),
+    actions: {
         change(pos: string) {
             this.count++
             this.pieces[pos] = this.count
-            const hasWinner = (pos: string): void | string => {
+            const hasWinner = (pos: string): string | void => {
                 const [x_s, y_s] = pos.split('-')
                 const x = parseInt(x_s)
                 const y = parseInt(y_s)

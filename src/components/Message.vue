@@ -18,6 +18,7 @@ const store = useStore();
 </template>
 
 <style scoped lang="less">
+@import "../style/mixin";
 div {
     position: absolute;
     top: 9px;
@@ -26,9 +27,7 @@ div {
     width: 500px;
     padding: 10px 20px;
     background-color: white;
-    box-sizing: border-box;
-    border: 2px solid transparent;
-    border-radius: 0.5em;
+    .radius();
     display: flex;
     justify-content: space-between;
     align-items: center;

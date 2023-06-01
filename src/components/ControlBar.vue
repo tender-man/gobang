@@ -6,16 +6,16 @@ const {reset, undo, setFirster} = store
 </script>
 
 <template>
-    <div class="radius">
-        <button :disabled="store.count<2" @click.stop="reset()">
+    <div>
+        <button @click.stop="reset()" :disabled="store.count<2">
             Reset
         </button>
-        <button :disabled="store.count<2 || store.winner !== ''"
-                class="undo" @click.stop="undo()"
+        <button class="undo" @click.stop="undo()"
+                :disabled="store.count<2 || store.winner !== ''"
         >
             Undo
         </button>
-        <button :disabled="store.count>1" @click.stop="setFirster()">
+        <button @click.stop="setFirster()" :disabled="store.count>1">
             Firster:
             <span :style="`color:${store.firster}`">{{ store.firster }}</span>
         </button>
