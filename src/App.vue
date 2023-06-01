@@ -13,7 +13,7 @@ onBeforeMount(() => {
     }
 });
 onBeforeUnmount(() => {
-    const setLocal = (data) => {
+    const setLocal = (data: any) => {
         const data_s = JSON.stringify(data);
         localStorage.setItem('store', data_s)
     }
