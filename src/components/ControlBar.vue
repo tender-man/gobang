@@ -23,8 +23,11 @@ const {reset, undo, setFirster} = store
 </template>
 
 <style lang="less" scoped>
+@import "../style/mixin";
+
 div {
     background-color: transparent;
+	.radius();
     margin: 20px;
     display: flex;
     justify-content: space-around;

@@ -19,6 +19,7 @@ const store = useStore();
 
 <style scoped lang="less">
 @import "../style/mixin";
+
 div {
     position: absolute;
     top: 9px;
@@ -27,7 +28,7 @@ div {
     width: 500px;
     padding: 10px 20px;
     background-color: white;
-    .radius();
+	.radius();
     display: flex;
     justify-content: space-between;
     align-items: center;
