@@ -20,7 +20,7 @@ const cla = computed(() => {
 
 <template>
     <span :class="cla"
-          @click.stop="!store.winner && store.change(pos)"
+          @click.stop="!store.winner && store.pieces[pos] === 1 && store.change(pos)"
           :next="next" :has-winner="store.winner || 'undefined'"
           :black="['3-3','7-7','3-11','11-3','11-11'].includes(pos)"
     ></span>

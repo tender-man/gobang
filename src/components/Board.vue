@@ -18,8 +18,10 @@ div {
     margin: 20px;
     padding-left: 1.5px;
     height: 455px;
+    overflow: hidden;
     background-color: #f0f0f0;
 	.radius();
-    overflow: hidden;
+    border: 1px solid gainsboro;
+    box-shadow: inset 0 0 10px gainsboro;
 }
 </style>

@@ -1,18 +1,33 @@
 import {defineStore} from "pinia"
 
-let pieces: { [key: string]: number } = {}
-for (let x = 0; x < 15; x++) {
-    for (let y = 0; y < 15; y++) {
-        pieces[x + '-' + y] = 1
-    }
-}
-let count = 1
-let firster = 'red'
-let winner = ''
 export const useStore = defineStore('store', {
-    state: () => ({
-        pieces, count, firster, winner
-    }), actions: {
+    state: () => {
+        let state: {
+            pieces: { [key: string]: number },
+            count: number,
+            firster: string,
+            winner: string
+        }
+        const data = localStorage.getItem('store');
+        if (data) {
+            state = JSON.parse(data);
+        } else {
+            let pieces: { [key: string]: number } = {};
+            for (let x = 0; x < 15; x++) {
+                for (let y = 0; y < 15; y++) {
+                    pieces[x + '-' + y] = 1
+                }
+            }
+            state = {
+                pieces: pieces,
+                count: 1,
+                firster: 'red',
+                winner: ''
+            }
+        }
+        return state
+    },
+    actions: {
         change(pos: string) {
             this.count++
             this.pieces[pos] = this.count
@@ -38,14 +53,20 @@ export const useStore = defineStore('store', {
                 }
                 // ↘方向
                 let x3 = x, y3 = y
-                while (x3 > 0 && y3 > 0) {x3--;y3--}
+                while (x3 > 0 && y3 > 0) {
+                    x3--;
+                    y3--
+                }
                 count = 0
                 for (; x3 <= 14 && y3 <= 14; x3++, y3++) {
                     if (decoration(x3, y3)) return true
                 }
                 // ↙方向
                 let x4 = x, y4 = y
-                while (x4 > 0 && y4 < 14) {x4--;y4++}
+                while (x4 > 0 && y4 < 14) {
+                    x4--;
+                    y4++
+                }
                 count = 0
                 for (; x4 <= 14 && y4 >= 0; x4++, y4--) {
                     if (decoration(x4, y4)) return true
@@ -58,10 +79,12 @@ export const useStore = defineStore('store', {
             }
         },
         reset() {
-            this.$reset()
             for (const pos in this.pieces) {
                 this.pieces[pos] = 1
             }
+            this.count = 1
+            this.firster = 'red'
+            this.winner = ''
         },
         undo() {
             for (const pos in this.pieces) {

@@ -1,30 +1,16 @@
 <script lang="ts" setup>
-import {useStore} from "./store";
 import Board from "./components/Board.vue"
 import ControlBar from "./components/ControlBar.vue"
 import Message from "./components/Message.vue";
-import {onBeforeMount, onBeforeUnmount} from "vue";
+import {useStore} from "./store";
+import {watch} from "vue";
 
+// 存在本局数据到本地
 const store = useStore();
-onBeforeMount(() => {
-    const data = localStorage.getItem('store');
-    if (data) {
-        store.$state = JSON.parse(data)
-    }
-});
-onBeforeUnmount(() => {
-    const setLocal = (data: any) => {
-        const data_s = JSON.stringify(data);
-        localStorage.setItem('store', data_s)
-    }
-    for (let pos in store.pieces) {
-        if (store.pieces[pos] > 1) {
-            setLocal(store.$state)
-            return
-        }
-    }
-    setLocal('')
-})
+watch(store.$state, () => {
+    const data_s = JSON.stringify(store.$state);
+    localStorage.setItem('store', data_s)
+}, {deep: true});
 </script>
 
 <template>
@@ -39,11 +25,12 @@ onBeforeUnmount(() => {
 @import "style/mixin";
 
 #app {
-	.radius();
     position: relative;
     width: 500px;
     height: 560px;
-    background-color: white;
     z-index: 200;
+    .radius();
+    background-color: white;
+    box-shadow: 0 0 5px gainsboro;
 }
 </style>
