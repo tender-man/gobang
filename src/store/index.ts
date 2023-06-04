@@ -74,8 +74,8 @@ export const useStore = defineStore('store', {
                 return false
             }
             if (hasWinner(pos)) {
-                this.winner = this.count % 2 === 0 ?
-                    this.firster : (this.firster === 'red' ? 'blue' : 'red')
+                this.winner =
+                    this.count % 2 === 0 ? this.firster : (this.firster === 'red' ? 'blue' : 'red')
             }
         },
         reset() {
