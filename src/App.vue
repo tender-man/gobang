@@ -5,7 +5,7 @@ import Message from "./components/Message.vue";
 import {useStore} from "./store";
 import {watch} from "vue";
 
-// 存在本局数据到本地
+// 存储本局数据到本地
 const store = useStore();
 watch(store.$state, () => {
     const data_s = JSON.stringify(store.$state);
