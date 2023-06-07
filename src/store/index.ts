@@ -1,12 +1,16 @@
 import {defineStore} from "pinia"
 
-export const useStore = defineStore('store', {
-    state: () => {
+enum pieceColor {
+    red = 'red', blue = 'blue'
+}
+
+const useStore = defineStore('store', {
+    state() {
         let state: {
             pieces: { [key: string]: number },
             count: number,
-            firster: string,
-            winner: string
+            firster: pieceColor,
+            winner: pieceColor | null
         }
         const data = localStorage.getItem('store');
         if (data) {
@@ -21,8 +25,8 @@ export const useStore = defineStore('store', {
             state = {
                 pieces: pieces,
                 count: 1,
-                firster: 'red',
-                winner: ''
+                firster: pieceColor.red,
+                winner: null
             }
         }
         return state
@@ -75,7 +79,8 @@ export const useStore = defineStore('store', {
             }
             if (hasWinner(pos)) {
                 this.winner =
-                    this.count % 2 === 0 ? this.firster : (this.firster === 'red' ? 'blue' : 'red')
+                    this.count % 2 === 0 ?
+                        this.firster : (this.firster === pieceColor.red ? pieceColor.blue : pieceColor.blue)
             }
         },
         reset() {
@@ -83,8 +88,8 @@ export const useStore = defineStore('store', {
                 this.pieces[pos] = 1
             }
             this.count = 1
-            this.firster = 'red'
-            this.winner = ''
+            this.firster = pieceColor.red
+            this.winner = null
         },
         undo() {
             for (const pos in this.pieces) {
@@ -96,7 +101,9 @@ export const useStore = defineStore('store', {
             }
         },
         setFirster() {
-            this.firster = this.firster === 'red' ? 'blue' : 'red'
+            this.firster = (this.firster === pieceColor.red ? pieceColor.blue : pieceColor.blue)
         },
-    }
+    },
 })
+
+export {useStore, pieceColor}
